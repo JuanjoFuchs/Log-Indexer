@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.20623.1 VSUPREVIEW
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer", "LogIndexer.csproj", "{68512909-8094-4EF4-9141-1F6BDCEC7DED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer", "LogIndexer\LogIndexer.csproj", "{DB11DD0B-928A-4DF2-BEA0-E0F70B787BC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{68512909-8094-4EF4-9141-1F6BDCEC7DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68512909-8094-4EF4-9141-1F6BDCEC7DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68512909-8094-4EF4-9141-1F6BDCEC7DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68512909-8094-4EF4-9141-1F6BDCEC7DED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB11DD0B-928A-4DF2-BEA0-E0F70B787BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB11DD0B-928A-4DF2-BEA0-E0F70B787BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB11DD0B-928A-4DF2-BEA0-E0F70B787BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB11DD0B-928A-4DF2-BEA0-E0F70B787BC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
