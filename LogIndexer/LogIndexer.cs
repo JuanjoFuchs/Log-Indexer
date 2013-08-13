@@ -2,40 +2,46 @@
 using Raven.Client.Document;
 
 namespace LogIndexer {
-  public class FileWatcher {
-    //const string PATH = @"C:\Temp\logs";
-    const string PATH = @"C:\dev\github\tzt\Host\Tzt.WinService.Host\bin\Debug";
+  public class LogIndexer {
+    const string PATH = @"C:\Temp\logs";
+    //const string PATH = @"C:\dev\github\tzt\Host\Tzt.WinService.Host\bin\Debug";
     readonly DocumentStore _documentStore;
 
-    public FileWatcher() {
+    public LogIndexer() {
       _documentStore = new DocumentStore { Url = "http://localhost:8080", DefaultDatabase = "LogIndexer" };
       _documentStore.Initialize();
     }
 
-    public void Watch() {
-      var watcher = new FileSystemWatcher { Path = PATH, Filter = "*.txt", NotifyFilter = NotifyFilters.LastWrite };
+    public void IndexExisting() {
+      var files = Directory.GetFiles(PATH);
+      foreach (var file in files) {
+        processFile(file);
+      }
+    }
+
+    public void StartWatching() {
+      var watcher = new FileSystemWatcher { Path = PATH, NotifyFilter = NotifyFilters.LastWrite };
       watcher.Changed += watcherOnChanged;
       watcher.EnableRaisingEvents = true;
     }
 
     void watcherOnChanged(object sender, FileSystemEventArgs fileSystemEventArgs) {
-      var path = fileSystemEventArgs.FullPath;
-      processLog(path);
+      processFile(fileSystemEventArgs.FullPath);
     }
 
-    void processLog(string path) {
+    void processFile(string path) {
       using (var session = _documentStore.OpenSession()) {
         var log = session.Load<Log>(path.GetHashCode());
         if (log == null) {
           log = new Log(path);
           session.Store(log);
         }
-        processFile(log);
+        processLog(log);
         session.SaveChanges();
       }
     }
 
-    void processFile(Log log) {
+    void processLog(Log log) {
       using (var stream = new FileStream(log.Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
         using (var reader = new StreamReader(stream)) {
           processLines(log, reader);
