@@ -1,10 +1,10 @@
-﻿using System.Diagnostics.Eventing.Reader;
-using System.IO;
+﻿using System.IO;
 using Raven.Client.Document;
 
 namespace LogIndexer {
   public class FileWatcher {
-    const string PATH = @"C:\Temp\logs";
+    //const string PATH = @"C:\Temp\logs";
+    const string PATH = @"C:\dev\github\tzt\Host\Tzt.WinService.Host\bin\Debug";
     readonly DocumentStore _documentStore;
 
     public FileWatcher() {
@@ -13,7 +13,7 @@ namespace LogIndexer {
     }
 
     public void Watch() {
-      var watcher = new FileSystemWatcher { Path = PATH, Filter = "*.log", NotifyFilter = NotifyFilters.LastWrite };
+      var watcher = new FileSystemWatcher { Path = PATH, Filter = "*.txt", NotifyFilter = NotifyFilters.LastWrite };
       watcher.Changed += watcherOnChanged;
       watcher.EnableRaisingEvents = true;
     }
@@ -38,13 +38,19 @@ namespace LogIndexer {
     void processFile(Log log) {
       using (var stream = new FileStream(log.Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
         using (var reader = new StreamReader(stream)) {
-          var index = 0;
-          while (reader.Peek() >= 0) {
-            index++;
-            var line = reader.ReadLine();
-            if (index > log.LastLineNumber) {
-              log.AddLine(new Line { Data = line, Number = index });
-            }
+          processLines(log, reader);
+        }
+      }
+    }
+
+    void processLines(Log log, StreamReader reader) {
+      using (var bulk = _documentStore.BulkInsert()) {
+        var index = 0;
+        while (reader.Peek() >= 0) {
+          index++;
+          var line = reader.ReadLine();
+          if (index > log.LastLineNumber) {
+            bulk.Store(log.CreateLine(line, index));
           }
         }
       }
