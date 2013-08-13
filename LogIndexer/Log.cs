@@ -5,25 +5,18 @@ namespace LogIndexer {
   public class Log {
     public int Id { get; set; }
     public string Path { get; set; }
-    public List<Line> Lines { get; set; }
-
-    public int LastLineNumber {
-      get {
-        if (!Lines.Any()) {
-          return 0;
-        }
-        return Lines.Max(line => line.Number);
-      }
-    }
+    public string Name { get; set; }
+    public int LastLineNumber { get; set; }
 
     public Log(string path) {
       Id = path.GetHashCode();
       Path = path;
-      Lines = new List<Line>();
+      Name = System.IO.Path.GetFileNameWithoutExtension(path);
     }
 
-    public void AddLine(Line line) {
-      Lines.Add(line);
+    public Line CreateLine(string line, int index) {
+      LastLineNumber = index;
+      return new Line { Data = line, Number = index, LogId = Id };
     }
   }
 }
