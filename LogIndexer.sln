@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.20623.1 VSUPREVIEW
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer", "LogIndexer\LogIndexer.csproj", "{DB11DD0B-928A-4DF2-BEA0-E0F70B787BC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Console", "LogIndexer.Console\LogIndexer.Console.csproj", "{94217FF6-D56E-425C-862A-4DEBEB49B0C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DB11DD0B-928A-4DF2-BEA0-E0F70B787BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB11DD0B-928A-4DF2-BEA0-E0F70B787BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB11DD0B-928A-4DF2-BEA0-E0F70B787BC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94217FF6-D56E-425C-862A-4DEBEB49B0C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94217FF6-D56E-425C-862A-4DEBEB49B0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94217FF6-D56E-425C-862A-4DEBEB49B0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94217FF6-D56E-425C-862A-4DEBEB49B0C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
