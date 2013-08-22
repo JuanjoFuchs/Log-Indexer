@@ -10,22 +10,29 @@ namespace LogIndexer {
     const int RAVEN_DEFAULT_PORT = 8080;
     const bool USE_HTTP_SERVER = true;
 
-    readonly LogIndexerSettings _settings;
-    readonly IDocumentStore _documentStore;
+    IDocumentStore _documentStore;
+    readonly string _path;
+    readonly ILogger _logger;
 
-    public LogIndexer(LogIndexerSettings settings) {
-      _settings = settings;
+    public LogIndexer(string path, string dataDirectory, ILogger logger) {
+      _path = path;
+      _logger = logger;
+      startRaven(dataDirectory);
+    }
+
+    void startRaven(string dataDirectory) {
       NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(RAVEN_DEFAULT_PORT);
       _documentStore = new EmbeddableDocumentStore {
-        DataDirectory = _settings.DataDirectory,
+        DataDirectory = dataDirectory,
         UseEmbeddedHttpServer = USE_HTTP_SERVER
       };
       _documentStore.Initialize();
     }
 
     public void IndexExisting() {
-      var files = Directory.GetFiles(_settings.Path);
+      var files = Directory.GetFiles(_path);
       foreach (var file in files) {
+        _logger.Write(".");
         processFile(file);
       }
       waitForStaleIndexes();
@@ -38,12 +45,13 @@ namespace LogIndexer {
     }
 
     public void StartWatching() {
-      var watcher = new FileSystemWatcher { Path = _settings.Path, NotifyFilter = NotifyFilters.LastWrite };
+      var watcher = new FileSystemWatcher { Path = _path, NotifyFilter = NotifyFilters.LastWrite };
       watcher.Changed += watcherOnChanged;
       watcher.EnableRaisingEvents = true;
     }
 
     void watcherOnChanged(object sender, FileSystemEventArgs fileSystemEventArgs) {
+      _logger.WriteLine("Change detected on {0}", fileSystemEventArgs.FullPath);
       processFile(fileSystemEventArgs.FullPath);
     }
 

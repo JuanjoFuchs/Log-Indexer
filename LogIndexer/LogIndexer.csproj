@@ -50,6 +50,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILogger.cs" />
     <Compile Include="LogIndexer.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Log.cs" />
