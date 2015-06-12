@@ -4,7 +4,6 @@
             <md-icon md-svg-icon="navigation:menu"></md-icon>
         </md-button>
         <span>LogIndexer</span>
-        <!-- fill up the space between left and right area -->
         <span flex></span>
     </div>
 </md-toolbar>
@@ -22,10 +21,9 @@
             </md-list-item>
         </md-list>
     </md-sidenav>
-    <div layout="column" flex id="content">
+    <div layout="column" layout-fill id="content">
         <md-content layout="column"
-                    flex 
-                    class="md-padding" 
+                    layout-fill
                     ng-view>
         </md-content>
     </div>

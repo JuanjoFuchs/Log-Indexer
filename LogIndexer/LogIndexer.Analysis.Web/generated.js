@@ -15,6 +15,7 @@ var LogIndexer;
                     controllerAs: "core",
                     templateUrl: "app/core/core.html"
                 },
+                dataService: "DataService",
                 dashboard: {
                     templateUrl: "app/dashboard/dashboard.html"
                 },
@@ -24,6 +25,12 @@ var LogIndexer;
                     controller: "LogsController",
                     controllerAs: "logList",
                     templateUrl: "app/logs/logs.html",
+                    search: {
+                        title: "Search",
+                        controller: "SearchController",
+                        controllerAs: "logSearch",
+                        templateUrl: "app/logs/search.html",
+                    },
                 }
             };
             return Constants;
@@ -120,6 +127,12 @@ var LogIndexer;
                 controller: logs.controller,
                 controllerAs: logs.controllerAs,
                 templateUrl: logs.templateUrl,
+            }).when("/logs/:id/search", {
+                title: logs.search.title,
+                controller: logs.search.controller,
+                controllerAs: logs.search.controllerAs,
+                templateUrl: logs.search.templateUrl,
+                resolve: Analysis.SearchController.resolve
             }).otherwise({ redirectTo: "/" });
         }
         RoutesConfig.$inject = ["$routeProvider"];
@@ -131,23 +144,81 @@ var LogIndexer;
     var Analysis;
     (function (Analysis) {
         "use strict";
-        var LogsController = (function () {
-            function LogsController() {
-                this.logs = [
-                    { name: "A log" },
-                    { name: "A log" },
-                    { name: "A log" },
-                    { name: "A log" },
-                    { name: "A log" },
-                ];
+        var DataService = (function () {
+            function DataService($resource) {
+                this.logsOData = $resource("odata/logs", {}, { oDataQuery: { method: "GET" } });
+                this.logsRest = $resource("api/logs/:id", { id: "@id" });
             }
-            LogsController.prototype.goTo = function (log) {
-                alert(log.name);
+            Object.defineProperty(DataService.prototype, "logs", {
+                get: function () {
+                    var _this = this;
+                    return {
+                        query: function (filter) { return Rx.Observable.fromPromise(_this.logsOData.oDataQuery(filter).$promise).map(function (response) {
+                            return {
+                                count: response["@odata.count"],
+                                entities: response.value
+                            };
+                        }); },
+                        load: function (id) { return Rx.Observable.fromPromise(_this.logsRest.get({ id: id }).$promise); }
+                    };
+                },
+                enumerable: true,
+                configurable: true
+            });
+            DataService.$inject = ["$resource"];
+            return DataService;
+        })();
+        Analysis.DataService = DataService;
+        angular.module(Analysis.Constants.app.module).service(Analysis.Constants.app.dataService, DataService);
+    })(Analysis = LogIndexer.Analysis || (LogIndexer.Analysis = {}));
+})(LogIndexer || (LogIndexer = {}));
+var LogIndexer;
+(function (LogIndexer) {
+    var Analysis;
+    (function (Analysis) {
+        "use strict";
+        var logs = Analysis.Constants.app.logs;
+        var LogsController = (function () {
+            function LogsController(locationService, dataService) {
+                this.locationService = locationService;
+                this.logs = [];
+                this.logCount = 0;
+                dataService.logs.query().take(1).subscribe(this.activate.bind(this));
+            }
+            LogsController.prototype.activate = function (logs) {
+                this.logCount = logs.count;
+                this.logs = logs.entities;
             };
-            LogsController.$inject = [];
+            LogsController.prototype.goTo = function (log) {
+                var path = "/#/logs/" + log.id + "/search";
+                this.locationService.path(path);
+                console.log(path);
+            };
+            LogsController.$inject = ["$location", Analysis.Constants.app.dataService];
             return LogsController;
         })();
-        angular.module(Analysis.Constants.app.logs.module).controller(Analysis.Constants.app.logs.controller, LogsController);
+        angular.module(logs.module).controller(logs.controller, LogsController);
+    })(Analysis = LogIndexer.Analysis || (LogIndexer.Analysis = {}));
+})(LogIndexer || (LogIndexer = {}));
+var LogIndexer;
+(function (LogIndexer) {
+    var Analysis;
+    (function (Analysis) {
+        "use strict";
+        var logs = Analysis.Constants.app.logs;
+        var SearchController = (function () {
+            function SearchController(locationService, dataService, log) {
+                this.locationService = locationService;
+            }
+            SearchController.$inject = ["$location", Analysis.Constants.app.dataService, "log"];
+            SearchController.resolve = {
+                log: function ($route, dataService) { return dataService.logs.load($route.current.params.id).toPromise; }
+            };
+            return SearchController;
+        })();
+        Analysis.SearchController = SearchController;
+        SearchController.resolve.log.$inject = ["$route", Analysis.Constants.app.dataService];
+        angular.module(logs.module).controller(logs.search.controller, SearchController);
     })(Analysis = LogIndexer.Analysis || (LogIndexer.Analysis = {}));
 })(LogIndexer || (LogIndexer = {}));
 //# sourceMappingURL=generated.js.map

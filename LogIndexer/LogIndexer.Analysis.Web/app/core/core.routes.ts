@@ -14,6 +14,13 @@
                 controllerAs: logs.controllerAs,
                 templateUrl: logs.templateUrl,
             })
+            .when("/logs/:id/search", {
+                title: logs.search.title,
+                controller: logs.search.controller,
+                controllerAs: logs.search.controllerAs,
+                templateUrl: logs.search.templateUrl,
+                resolve: SearchController.resolve
+            })
             .otherwise({ redirectTo: "/" });
     }
 

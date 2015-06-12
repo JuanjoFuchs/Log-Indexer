@@ -1,23 +1,34 @@
 ﻿module LogIndexer.Analysis {
     "use strict";
 
-    class LogsController {
-        static $inject = [];
+    var logs = Constants.app.logs;
 
-        logs = [
-            { name: "A log" },
-            { name: "A log" },
-            { name: "A log" },
-            { name: "A log" },
-            { name: "A log" },
-        ];
+    class LogsController {
+        static $inject = ["$location", Constants.app.dataService];
+
+        logs = [];
+        logCount = 0;
+
+        constructor(private locationService: ng.ILocationService, dataService: DataService) {
+            dataService.logs
+                .query()
+                .take(1)
+                .subscribe(this.activate.bind(this))
+        }
+
+        activate(logs) {
+            this.logCount = logs.count;
+            this.logs = logs.entities;
+        }
 
         goTo(log) {
-            alert(log.name);
+            var path = `/#/logs/${log.id}/search`;
+            this.locationService.path(path);
+            console.log(path);
         }
     }
 
     angular
-        .module(Constants.app.logs.module)
-        .controller(Constants.app.logs.controller, LogsController);
+        .module(logs.module)
+        .controller(logs.controller, LogsController);
 }

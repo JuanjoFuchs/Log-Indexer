@@ -13,12 +13,18 @@ namespace LogIndexer.Analysis.Web
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/respond.js",
+                "~/Scripts/q.js",
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-animate.js",
                 "~/Scripts/angular-aria.js",
                 // "~/Scripts/angular-material.js",
                 "~/Scripts/angular-route.js",
-                "~/Scripts/angular-resource.js"
+                "~/Scripts/angular-resource.js",
+                "~/Scripts/rx.js",
+                "~/Scripts/rx.lite.js",
+                "~/Scripts/rx.aggregates.js",
+                "~/Scripts/rx.async.js",
+                "~/Scripts/rx.angular.js"
                 ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

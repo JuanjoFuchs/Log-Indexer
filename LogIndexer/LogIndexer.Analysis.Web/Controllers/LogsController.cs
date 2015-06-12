@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using LogIndexer.Core.Domain;
 using Raven.Client;
 using Raven.Client.Document;
@@ -8,13 +7,19 @@ namespace LogIndexer.Analysis.Web.Controllers
 {
     public class LogsController : ApiController
     {
-        [Queryable]
-        public IQueryable<Log> Get()
+        private readonly IDocumentStore _store;
+
+        public LogsController()
         {
-            using (IDocumentStore store = new DocumentStore { Url = "http://localhost:8080", DefaultDatabase = "test" })
-            using (var session = store.OpenSession())
+            _store = new DocumentStore { Url = "http://localhost:8080", DefaultDatabase = "test" };
+            _store.Initialize();
+        }
+
+        public Log Get(int id)
+        {
+            using (var session = _store.OpenSession())
             {
-                return session.Query<Log>();
+                return session.Load<Log>(id);
             }
         }
     }

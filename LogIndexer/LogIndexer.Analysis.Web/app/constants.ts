@@ -13,6 +13,8 @@
                 templateUrl: "app/core/core.html"
             },
 
+            dataService: "DataService",
+
             dashboard: {
                 templateUrl: "app/dashboard/dashboard.html"
             },
@@ -23,6 +25,13 @@
                 controller: "LogsController",
                 controllerAs: "logList",
                 templateUrl: "app/logs/logs.html",
+
+                search: {
+                    title: "Search",
+                    controller: "SearchController",
+                    controllerAs: "logSearch",
+                    templateUrl: "app/logs/search.html",
+                },
             }
         };
     }
