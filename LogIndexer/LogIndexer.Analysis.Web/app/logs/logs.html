@@ -1,11 +1,13 @@
-﻿<md-list-item class="md-3-line"
-              ng-click="logList.goTo(log)"
-              ng-repeat="log in logList.logs">
-    <md-icon md-svg-icon="file:folder"></md-icon>
-    <div class="md-list-item-text">
-        <h3>{{log.name}}</h3>
-        <h4>Soemthing</h4>
-        <p>Details</p>
-    </div>
-    <md-divider></md-divider>
-</md-list-item>
+﻿<md-list>
+    <md-list-item class="md-3-line"
+                  ng-click="logList.goTo(log)"
+                  ng-repeat="log in logList.logs.entities">
+        <md-icon md-svg-icon="file:folder"></md-icon>
+        <div class="md-list-item-text">
+            <h3>{{log.name}}</h3>
+            <h4>Soemthing</h4>
+            <p>Details</p>
+        </div>
+        <md-divider></md-divider>
+    </md-list-item>
+</md-list>

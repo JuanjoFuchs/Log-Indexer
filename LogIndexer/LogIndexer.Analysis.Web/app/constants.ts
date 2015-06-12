@@ -4,6 +4,7 @@
     export class Constants {
         static app = {
             module: "app",
+            title: "LogIndexer",
 
             core: {
                 module: "app.core",

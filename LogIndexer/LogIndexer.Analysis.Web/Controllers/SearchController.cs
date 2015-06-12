@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Http;
+using LogIndexer.Core.Domain;
 using Raven.Abstractions.Data;
 using Raven.Client;
 using Raven.Client.Document;
@@ -16,9 +17,9 @@ namespace LogIndexer.Analysis.Web.Controllers
             _store.Initialize();
         }
 
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(string query)
         {
-            var result = _store.DatabaseCommands.Query("Records/ByData", new IndexQuery {Query = "Data:*Error* AND Data:*campaignscontroller*"});
+            var result = _store.DatabaseCommands.Query("Records/ByData", new IndexQuery {Query = query});
 
             return Ok(new
             {

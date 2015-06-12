@@ -1,15 +1,37 @@
-﻿<section layout="row" layout-sm="column" layout-align="left center">
-    <md-button class="md-raised md-primary">
-        <md-icon md-svg-icon="av:play_arrow"></md-icon>
-        Run
-    </md-button>
-</section>
-<form name="searchForm"
-      id="searchForm">
-    <md-input-container flex>
-        <label>Query</label>
-        <textarea ng-model="logSearch.query"
-                  columns="1"
-                  rows="3"></textarea>
-    </md-input-container>
-</form>
+﻿<md-content>
+    <section>
+        <md-button class="md-raised md-primary"
+                   ng-click="logSearch.search()"
+                   ng-disabled="!logSearch.query">
+            <md-icon md-svg-icon="av:play_arrow"></md-icon>
+            Run
+        </md-button>
+    </section>
+    <section>
+        <form name="searchForm"
+              id="searchForm">
+            <md-input-container flex>
+                <label>Query</label>
+                <textarea ng-model="logSearch.query"
+                          class="code"
+                          columns="1"
+                          rows="2"></textarea>
+            </md-input-container>
+        </form>
+    </section>
+    <section ng-show="logSearch.results">
+        <md-subheader>
+            Found {{logSearch.results.totalResults}} record{{logSearch.results.totalResults == 1 ? "" : "s"}}
+            in {{logSearch.results.durationMilliseconds/1000}} seconds
+        </md-subheader>
+        <md-list>
+            <md-list-item class="md-3-line"
+                          ng-repeat="result in logSearch.results.results">
+                <div class="md-list-item-text code">
+                    {{result.data}}
+                </div>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </section>
+</md-content>

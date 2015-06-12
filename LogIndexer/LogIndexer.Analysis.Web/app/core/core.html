@@ -1,15 +1,47 @@
 ﻿<md-toolbar>
     <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" aria-label="Menu">
+        <md-button class="md-icon-button"
+                   aria-label="Menu"
+                   ng-click="core.toggleNav()">
             <md-icon md-svg-icon="navigation:menu"></md-icon>
         </md-button>
-        <span>LogIndexer</span>
+        <md-button ng-href="/#{{breadcrumb.href}}"
+                   ng-disabled="!breadcrumb.href"
+                   ng-repeat-start="breadcrumb in core.breadcrumbs">{{breadcrumb.title}}</md-button>
+        <md-icon md-svg-icon="navigation:chevron_right"
+                 ng-repeat-end
+                 ng-if="!$last"
+                 ng-class="{ 'active': $last }"></md-icon>
         <span flex></span>
     </div>
 </md-toolbar>
 
-<div layout="row" layout-fill>
-    <md-sidenav class="md-sidenav-left"
+<div layout="row" layout-fill flex>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2"
+                md-component-id="left">
+        <md-toolbar class="md-theme-indigo">
+            <h1 class="md-toolbar-tools">Sidenav Left</h1>
+        </md-toolbar>
+        <md-content layout-padding>
+            <!--<md-button ng-click="close()" class="md-primary" hide-gt-md>
+                Close Sidenav Left
+            </md-button>
+            <p hide-md show-gt-md>
+                This sidenav is locked open on your device. To go back to the default behavior,
+                narrow your display.
+            </p>-->
+            <md-list>
+                <md-list-item>
+                    <md-button ng-click="core.goToLogs()">
+                        <md-icon md-svg-icon="file:folder"></md-icon>
+                        Logs
+                    </md-button>
+                </md-list-item>
+            </md-list>
+
+        </md-content>
+    </md-sidenav>
+    <!--<md-sidenav class="md-sidenav-left"
                 md-component-id="left"
                 md-is-open="true">
         <md-list>
@@ -20,10 +52,11 @@
                 </md-button>
             </md-list-item>
         </md-list>
-    </md-sidenav>
+    </md-sidenav>-->
     <div layout="column" layout-fill id="content">
         <md-content layout="column"
                     layout-fill
+                    flex
                     ng-view>
         </md-content>
     </div>

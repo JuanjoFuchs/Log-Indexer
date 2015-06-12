@@ -1,1 +1,7 @@
-﻿
+﻿.code {
+    font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+}
+
+.md-toolbar-tools .md-button[disabled] {
+    color: rgba(255, 255, 255, 0.5);
+}
