@@ -1,6 +1,6 @@
 /**
- * @license AngularJS v1.4.0
- * (c) 2010-2015 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.3.15
+ * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, angular, undefined) {'use strict';
@@ -216,101 +216,88 @@ ngAriaModule.directive('ngShow', ['$aria', function($aria) {
     restrict: 'A',
     require: '?ngModel',
     priority: 200, //Make sure watches are fired after any other directives that affect the ngModel value
-    compile: function(elem, attr) {
+    link: function(scope, elem, attr, ngModel) {
       var shape = getShape(attr, elem);
+      var needsTabIndex = shouldAttachAttr('tabindex', 'tabindex', elem);
 
-      return {
-        pre: function(scope, elem, attr, ngModel) {
-          if (shape === 'checkbox' && attr.type !== 'checkbox') {
-            //Use the input[checkbox] $isEmpty implementation for elements with checkbox roles
-            ngModel.$isEmpty = function(value) {
-              return value === false;
-            };
+      function ngAriaWatchModelValue() {
+        return ngModel.$modelValue;
+      }
+
+      function getRadioReaction() {
+        if (needsTabIndex) {
+          needsTabIndex = false;
+          return function ngAriaRadioReaction(newVal) {
+            var boolVal = (attr.value == ngModel.$viewValue);
+            elem.attr('aria-checked', boolVal);
+            elem.attr('tabindex', 0 - !boolVal);
+          };
+        } else {
+          return function ngAriaRadioReaction(newVal) {
+            elem.attr('aria-checked', (attr.value == ngModel.$viewValue));
+          };
+        }
+      }
+
+      function ngAriaCheckboxReaction(newVal) {
+        elem.attr('aria-checked', !ngModel.$isEmpty(ngModel.$viewValue));
+      }
+
+      switch (shape) {
+        case 'radio':
+        case 'checkbox':
+          if (shouldAttachRole(shape, elem)) {
+            elem.attr('role', shape);
           }
-        },
-        post: function(scope, elem, attr, ngModel) {
-          var needsTabIndex = shouldAttachAttr('tabindex', 'tabindex', elem);
-
-          function ngAriaWatchModelValue() {
-            return ngModel.$modelValue;
+          if (shouldAttachAttr('aria-checked', 'ariaChecked', elem)) {
+            scope.$watch(ngAriaWatchModelValue, shape === 'radio' ?
+                getRadioReaction() : ngAriaCheckboxReaction);
           }
-
-          function getRadioReaction() {
-            if (needsTabIndex) {
-              needsTabIndex = false;
-              return function ngAriaRadioReaction(newVal) {
-                var boolVal = (attr.value == ngModel.$viewValue);
-                elem.attr('aria-checked', boolVal);
-                elem.attr('tabindex', 0 - !boolVal);
-              };
-            } else {
-              return function ngAriaRadioReaction(newVal) {
-                elem.attr('aria-checked', (attr.value == ngModel.$viewValue));
-              };
+          break;
+        case 'range':
+          if (shouldAttachRole(shape, elem)) {
+            elem.attr('role', 'slider');
+          }
+          if ($aria.config('ariaValue')) {
+            if (attr.min && !elem.attr('aria-valuemin')) {
+              elem.attr('aria-valuemin', attr.min);
+            }
+            if (attr.max && !elem.attr('aria-valuemax')) {
+              elem.attr('aria-valuemax', attr.max);
+            }
+            if (!elem.attr('aria-valuenow')) {
+              scope.$watch(ngAriaWatchModelValue, function ngAriaValueNowReaction(newVal) {
+                elem.attr('aria-valuenow', newVal);
+              });
             }
           }
-
-          function ngAriaCheckboxReaction() {
-            elem.attr('aria-checked', !ngModel.$isEmpty(ngModel.$viewValue));
+          break;
+        case 'multiline':
+          if (shouldAttachAttr('aria-multiline', 'ariaMultiline', elem)) {
+            elem.attr('aria-multiline', true);
           }
+          break;
+      }
 
-          switch (shape) {
-            case 'radio':
-            case 'checkbox':
-              if (shouldAttachRole(shape, elem)) {
-                elem.attr('role', shape);
-              }
-              if (shouldAttachAttr('aria-checked', 'ariaChecked', elem)) {
-                scope.$watch(ngAriaWatchModelValue, shape === 'radio' ?
-                    getRadioReaction() : ngAriaCheckboxReaction);
-              }
-              break;
-            case 'range':
-              if (shouldAttachRole(shape, elem)) {
-                elem.attr('role', 'slider');
-              }
-              if ($aria.config('ariaValue')) {
-                if (attr.min && !elem.attr('aria-valuemin')) {
-                  elem.attr('aria-valuemin', attr.min);
-                }
-                if (attr.max && !elem.attr('aria-valuemax')) {
-                  elem.attr('aria-valuemax', attr.max);
-                }
-                if (!elem.attr('aria-valuenow')) {
-                  scope.$watch(ngAriaWatchModelValue, function ngAriaValueNowReaction(newVal) {
-                    elem.attr('aria-valuenow', newVal);
-                  });
-                }
-              }
-              break;
-            case 'multiline':
-              if (shouldAttachAttr('aria-multiline', 'ariaMultiline', elem)) {
-                elem.attr('aria-multiline', true);
-              }
-              break;
-          }
+      if (needsTabIndex) {
+        elem.attr('tabindex', 0);
+      }
 
-          if (needsTabIndex) {
-            elem.attr('tabindex', 0);
-          }
+      if (ngModel.$validators.required && shouldAttachAttr('aria-required', 'ariaRequired', elem)) {
+        scope.$watch(function ngAriaRequiredWatch() {
+          return ngModel.$error.required;
+        }, function ngAriaRequiredReaction(newVal) {
+          elem.attr('aria-required', !!newVal);
+        });
+      }
 
-          if (ngModel.$validators.required && shouldAttachAttr('aria-required', 'ariaRequired', elem)) {
-            scope.$watch(function ngAriaRequiredWatch() {
-              return ngModel.$error.required;
-            }, function ngAriaRequiredReaction(newVal) {
-              elem.attr('aria-required', !!newVal);
-            });
-          }
-
-          if (shouldAttachAttr('aria-invalid', 'ariaInvalid', elem)) {
-            scope.$watch(function ngAriaInvalidWatch() {
-              return ngModel.$invalid;
-            }, function ngAriaInvalidReaction(newVal) {
-              elem.attr('aria-invalid', !!newVal);
-            });
-          }
-        }
-      };
+      if (shouldAttachAttr('aria-invalid', 'ariaInvalid', elem)) {
+        scope.$watch(function ngAriaInvalidWatch() {
+          return ngModel.$invalid;
+        }, function ngAriaInvalidReaction(newVal) {
+          elem.attr('aria-invalid', !!newVal);
+        });
+      }
     }
   };
 }])
@@ -352,8 +339,7 @@ ngAriaModule.directive('ngShow', ['$aria', function($aria) {
 
         if ($aria.config('bindKeypress') && !attr.ngKeypress && !isNodeOneOf(elem, nodeBlackList)) {
           elem.on('keypress', function(event) {
-            var keyCode = event.which || event.keyCode;
-            if (keyCode === 32 || keyCode === 13) {
+            if (event.keyCode === 32 || event.keyCode === 13) {
               scope.$apply(callback);
             }
 

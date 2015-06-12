@@ -1,0 +1,32 @@
+﻿<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Menu">
+            <md-icon md-svg-icon="navigation:menu"></md-icon>
+        </md-button>
+        <span>LogIndexer</span>
+        <!-- fill up the space between left and right area -->
+        <span flex></span>
+    </div>
+</md-toolbar>
+
+<div layout="row" layout-fill>
+    <md-sidenav class="md-sidenav-left"
+                md-component-id="left"
+                md-is-open="true">
+        <md-list>
+            <md-list-item>
+                <md-button href="#/logs">
+                    <md-icon md-svg-icon="file:folder"></md-icon>
+                    Logs
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <div layout="column" flex id="content">
+        <md-content layout="column"
+                    flex 
+                    class="md-padding" 
+                    ng-view>
+        </md-content>
+    </div>
+</div>

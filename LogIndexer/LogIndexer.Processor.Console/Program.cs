@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using LogIndexer.Core.Domain;
 using Raven.Client;
 using Raven.Client.Document;
 
@@ -43,10 +44,5 @@ namespace LogIndexer.Processor.Console
             }
 
         }
-    }
-
-    public class Record
-    {
-        public string Data { get; set; }
     }
 }
