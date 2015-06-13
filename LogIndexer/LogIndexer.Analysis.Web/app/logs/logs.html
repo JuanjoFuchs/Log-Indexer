@@ -12,12 +12,25 @@
             </h3>
 
             <h4>
-                {{log.environment.name}} / {{log.server.name}}
+                {{log.environment.name}}
             </h4>
 
             <p>
-                <span ng-show="log.dataSources.length">{{logList.mapDataSources(log.dataSources)}} records indexed</span>
+                <span ng-show="log.dataSources.length">
+                    {{logList.serverNames(log.dataSources).join(", ")}}
+                </span>
             </p>
+            <div class="md-secondary" ng-show="log.dataSources.length">
+                <h3>
+                    {{logList.recordsIndexed(log.dataSources) | number:0}} records indexed
+                </h3>
+
+                <h4></h4>
+
+                <p>
+                    {{logList.fileNames(log.dataSources).join(", ")}}
+                </p>
+            </div>
         </div>
         <md-divider></md-divider>
     </md-list-item>

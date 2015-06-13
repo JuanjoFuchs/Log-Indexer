@@ -4,12 +4,12 @@
     var logs = Constants.app.logs;
 
     export class LogsController {
-        static $inject = ["$filter", "$location", Constants.app.dataService, "data"];
+        static $inject = ["$location", Constants.app.dataService, "data"];
 
         logs;
         private dataSourceTotals;
 
-        constructor(private $filter, private $location: ng.ILocationService, dataService: DataService, data) {
+        constructor(private $location: ng.ILocationService, dataService: DataService, data) {
             console.log(data);
             this.logs = data.logs;
             this.dataSourceTotals = data.dataSourceTotals;
@@ -28,15 +28,19 @@
             this.$location.path(`/${log.id}/search`);
         }
 
-        mapDataSources(dataSources) {
-            var count = dataSource => this.dataSourceTotals
-                .filter(x => x.dataSourceId === dataSource.id)
-                .map(x => x.count)
-                .reduce((previous, current, index, array) => previous + current);
+        serverNames(dataSources) {
+            return dataSources.map(x => x.server.name);
+        }
 
-            return dataSources
-                .map(dataSource => `${dataSource.file}: ${this.$filter("number")(count(dataSource), 0) }`)
-                .join(", ");
+        recordsIndexed(dataSources) {
+            return this.dataSourceTotals
+                .filter(x => dataSources.some(y => y.id === x.dataSourceId))
+                .map(x => x.count)
+                .reduce((previous, current, index, array) => previous + current, 0);
+        }
+
+        fileNames(dataSources) {
+            return dataSources.map(x => x.file);
         }
     }
 
