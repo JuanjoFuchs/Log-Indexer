@@ -4,25 +4,43 @@
     var logs = Constants.app.logs;
 
     export class LogsController {
-        static $inject = ["$location", Constants.app.dataService, "logs"];
+        static $inject = ["$filter", "$location", Constants.app.dataService, "data"];
 
-        constructor(private $location: ng.ILocationService, dataService: DataService, public logs) {
+        logs;
+        private dataSourceTotals;
+
+        constructor(private $filter, private $location: ng.ILocationService, dataService: DataService, data) {
+            console.log(data);
+            this.logs = data.logs;
+            this.dataSourceTotals = data.dataSourceTotals;
         }
 
         static resolve: any = {
-            logs: dataService => dataService.logs.query()
+            data: dataService => {
+                return Q.when({
+                    logs: dataService.logs.query(),
+                    dataSourceTotals: dataService.records.totals.byDataSourceId()
+                });
+            },
         };
 
         goTo(log) {
             this.$location.path(`/${log.id}/search`);
         }
 
-        map(list, property, separator = ", ") {
-            return list.map(x => x[property]).join(separator);
+        mapDataSources(dataSources) {
+            var count = dataSource => this.dataSourceTotals
+                .filter(x => x.dataSourceId === dataSource.id)
+                .map(x => x.count)
+                .reduce((previous, current, index, array) => previous + current);
+
+            return dataSources
+                .map(dataSource => `${dataSource.file}: ${this.$filter("number")(count(dataSource), 0) }`)
+                .join(", ");
         }
     }
 
-    LogsController.resolve.logs.$inject = [Constants.app.dataService];
+    LogsController.resolve.data.$inject = [Constants.app.dataService];
 
     angular
         .module(logs.module)

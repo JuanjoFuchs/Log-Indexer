@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Http;
+using LogIndexer.Core.Data;
 using LogIndexer.Core.Domain;
 using Raven.Abstractions.Data;
 

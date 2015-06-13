@@ -2,8 +2,8 @@
 using System.Web.OData.Batch;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
+using LogIndexer.Core.Data.Indexes;
 using LogIndexer.Core.Domain;
-using LogIndexer.Processor.Data.Indexes;
 using Microsoft.OData.Edm;
 using Newtonsoft.Json;
 

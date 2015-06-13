@@ -1,7 +1,7 @@
 using Raven.Client;
 using Raven.Client.Document;
 
-namespace LogIndexer.Analysis.Web.Controllers
+namespace LogIndexer.Core.Data
 {
     public class Store
     {

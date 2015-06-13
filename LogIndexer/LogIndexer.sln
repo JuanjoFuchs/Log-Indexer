@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Processor.Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Core.Domain", "LogIndexer.Core.Domain\LogIndexer.Core.Domain.csproj", "{1FA52598-89FB-4806-AAF4-23DE31969D85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Processor.Data", "LogIndexer.Processor.Data\LogIndexer.Processor.Data.csproj", "{F4C7A377-A3FE-4F1D-8DB6-A9C9A6FAAB7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Core.Data", "LogIndexer.Core.Data\LogIndexer.Core.Data.csproj", "{C613C973-8D4F-418A-BF1A-9AA12F1F2CC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{1FA52598-89FB-4806-AAF4-23DE31969D85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FA52598-89FB-4806-AAF4-23DE31969D85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FA52598-89FB-4806-AAF4-23DE31969D85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4C7A377-A3FE-4F1D-8DB6-A9C9A6FAAB7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4C7A377-A3FE-4F1D-8DB6-A9C9A6FAAB7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4C7A377-A3FE-4F1D-8DB6-A9C9A6FAAB7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4C7A377-A3FE-4F1D-8DB6-A9C9A6FAAB7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C613C973-8D4F-418A-BF1A-9AA12F1F2CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C613C973-8D4F-418A-BF1A-9AA12F1F2CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C613C973-8D4F-418A-BF1A-9AA12F1F2CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C613C973-8D4F-418A-BF1A-9AA12F1F2CC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

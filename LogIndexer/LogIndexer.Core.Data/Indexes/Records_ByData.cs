@@ -4,7 +4,7 @@ using Lucene.Net.Analysis;
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
 
-namespace LogIndexer.Processor.Data.Indexes
+namespace LogIndexer.Core.Data.Indexes
 {
     public class Records_ByData : AbstractIndexCreationTask<Record>
     {

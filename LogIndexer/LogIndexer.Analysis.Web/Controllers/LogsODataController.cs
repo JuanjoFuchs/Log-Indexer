@@ -2,8 +2,9 @@
 using System.Web.OData;
 using System.Web.OData.Query;
 using System.Web.OData.Routing;
+using LogIndexer.Core.Data;
+using LogIndexer.Core.Data.Indexes;
 using LogIndexer.Core.Domain;
-using LogIndexer.Processor.Data.Indexes;
 
 namespace LogIndexer.Analysis.Web.Controllers
 {

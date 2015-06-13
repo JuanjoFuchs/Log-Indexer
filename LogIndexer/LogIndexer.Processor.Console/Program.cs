@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.CodeDom;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using LogIndexer.Core.Data.Indexes;
 using LogIndexer.Core.Domain;
-using LogIndexer.Processor.Data.Indexes;
 using Raven.Client;
 using Raven.Client.Document;
 
@@ -16,9 +17,9 @@ namespace LogIndexer.Processor.Console
             {
                 store.Initialize();
 
-                //var sources = SeedData(store);
-                //foreach (var source in sources)
-                //    IndexFile(store, source);
+                var sources = SeedData(store);
+                foreach (var source in sources)
+                    IndexFile(store, source);
                 CreateIndexes(store);
             }
         }
@@ -27,25 +28,13 @@ namespace LogIndexer.Processor.Console
         {
             new Records_ByData().Execute(store);
             new Logs_Full().Execute(store);
+            new Records_ByDataSourceId_Total().Execute(store);
         }
 
-        private static Dictionary<string, DataSource> SeedData(IDocumentStore store)
+        private static List<DataSource> SeedData(IDocumentStore store)
         {
-            var webAppFile = new DataSource
-            {
-                Name = "Local WebApplication.log",
-                Path = @"C:\dev\github\personal\Log-Indexer\LogIndexer\LogIndexer.Processor.Console\Logs",
-                File = "WebApplication.log"
-            };
-            var oldServiceFile = new DataSource
-            {
-                Name = "Local OldService.log",
-                Path = @"C:\dev\github\personal\Log-Indexer\LogIndexer\LogIndexer.Processor.Console\Logs",
-                File = "OldService.log"
-            };
+            var dataSources = new List<DataSource>();
 
-            string webAppFileId;
-            string oldServiceFileId;
             using (var session = store.OpenSession())
             {
                 var webApp = new Application {Name = "Web Application"};
@@ -62,54 +51,68 @@ namespace LogIndexer.Processor.Console
                 session.Store(staging);
                 session.Store(production);
 
-                session.Store(webAppFile);
-                session.Store(oldServiceFile);
+                var webServer = new Server { Name = "Web Server" };
+                var oldServer = new Server {Name = "Old Server"};
+                session.Store(webServer);
+                session.Store(oldServer);
 
-                webAppFileId = session.Advanced.GetDocumentId(webAppFile);
+                var webAppFile = new DataSource
+                {
+                    ServerId = webServer.Id,
+                    Name = "Local WebApplication.log",
+                    Path = @"C:\dev\github\personal\Log-Indexer\LogIndexer\LogIndexer.Processor.Console\Logs",
+                    File = "WebApplication.log"
+                };
+                session.Store(webAppFile);
+                dataSources.Add(webAppFile);
+
+                var oldServiceFile = new DataSource
+                {
+                    ServerId = oldServer.Id,
+                    Name = "Local OldService.log",
+                    Path = @"C:\dev\github\personal\Log-Indexer\LogIndexer\LogIndexer.Processor.Console\Logs",
+                    File = "OldService.log"
+                };
+                session.Store(oldServiceFile);
+                dataSources.Add(oldServiceFile);
+
                 session.Store(new Log
                 {
                     Name = "WebApplication log",
-                    ApplicationId = session.Advanced.GetDocumentId(webApp),
-                    EnvironmentId = session.Advanced.GetDocumentId(dev),
-                    DataSourceIds = new[] { webAppFileId }
+                    ApplicationId = webApp.Id,
+                    EnvironmentId = dev.Id,
+                    DataSourceIds = new[] {webAppFile.Id}
                 });
-                var oldServiceId = session.Advanced.GetDocumentId(oldService);
-                oldServiceFileId = session.Advanced.GetDocumentId(oldServiceFile);
                 session.Store(new Log
                 {
                     Name = "Some service log",
-                    ApplicationId = oldServiceId,
-                    EnvironmentId = session.Advanced.GetDocumentId(qa),
-                    DataSourceIds = new[] { oldServiceFileId}
+                    ApplicationId = oldService.Id,
+                    EnvironmentId = qa.Id,
+                    DataSourceIds = new[] {oldServiceFile.Id}
                 });
                 session.Store(new Log
                 {
                     Name = "Another log",
-                    ApplicationId = oldServiceId,
-                    EnvironmentId = session.Advanced.GetDocumentId(staging)
+                    ApplicationId = oldService.Id,
+                    EnvironmentId = staging.Id
                 });
                 session.Store(new Log
                 {
                     Name = "One more log",
-                    ApplicationId = oldServiceId,
-                    EnvironmentId = session.Advanced.GetDocumentId(production)
+                    ApplicationId = oldService.Id,
+                    EnvironmentId = production.Id
                 });
 
                 session.SaveChanges();
             }
 
-            return new Dictionary<string, DataSource>
-            {
-                { webAppFileId, webAppFile},
-                { oldServiceFileId, oldServiceFile}
-            };
+            return dataSources;
         }
 
-        private static void IndexFile(IDocumentStore store, KeyValuePair<string, DataSource> dataSourceWithId)
+        private static void IndexFile(IDocumentStore store, DataSource dataSource)
         {
             var lastLineNumber = 0;
 
-            var dataSource = dataSourceWithId.Value;
             System.Console.WriteLine("Checking '{0}'", dataSource.Path);
 
             var file = Directory
@@ -131,7 +134,7 @@ namespace LogIndexer.Processor.Console
                         index++;
                         if (index > lastLineNumber)
                         {
-                            bulkInsert.Store(new Record {Data = line, DataSourceId = dataSourceWithId.Key});
+                            bulkInsert.Store(new Record {Data = line, DataSourceId = dataSource.Id});
                             System.Console.Write(".");
                         }
                     }

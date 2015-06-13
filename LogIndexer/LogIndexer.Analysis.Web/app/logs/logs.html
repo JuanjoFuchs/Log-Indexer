@@ -5,11 +5,18 @@
         <md-icon md-svg-icon="file:folder"
                  style="width: 48px; height: 48px;"></md-icon>
         <div class="md-list-item-text">
-            <h3>{{log.application.name}}</h3>
-            <h4>{{log.environment.name}}</h4>
-            <p>
+            <h3>
+                {{log.application.name}}
+                <md-icon md-svg-icon="navigation:chevron_right"></md-icon>
                 {{log.name}}
-                <span ng-show="log.dataSources">({{logList.map(log.dataSources, "file")}})</span>
+            </h3>
+
+            <h4>
+                {{log.environment.name}} / {{log.server.name}}
+            </h4>
+
+            <p>
+                <span ng-show="log.dataSources.length">{{logList.mapDataSources(log.dataSources)}} records indexed</span>
             </p>
         </div>
         <md-divider></md-divider>
