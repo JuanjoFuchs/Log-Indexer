@@ -78,6 +78,10 @@
       <Project>{1FA52598-89FB-4806-AAF4-23DE31969D85}</Project>
       <Name>LogIndexer.Core.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogIndexer.Processor.Data\LogIndexer.Processor.Data.csproj">
+      <Project>{F4C7A377-A3FE-4F1D-8DB6-A9C9A6FAAB7F}</Project>
+      <Name>LogIndexer.Processor.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

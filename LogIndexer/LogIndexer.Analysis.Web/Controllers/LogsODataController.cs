@@ -3,8 +3,7 @@ using System.Web.OData;
 using System.Web.OData.Query;
 using System.Web.OData.Routing;
 using LogIndexer.Core.Domain;
-using Raven.Client;
-using Raven.Client.Document;
+using LogIndexer.Processor.Data.Indexes;
 
 namespace LogIndexer.Analysis.Web.Controllers
 {
@@ -12,20 +11,14 @@ namespace LogIndexer.Analysis.Web.Controllers
     [EnableQuery(HandleNullPropagation = HandleNullPropagationOption.False, EnableConstantParameterization = false)]
     public class LogsODataController : ODataController
     {
-        private readonly IDocumentStore _store;
-
-        public LogsODataController()
-        {
-            _store = new DocumentStore { Url = "http://localhost:8080", DefaultDatabase = "test" };
-            _store.Initialize();
-        }
-
         [ODataRoute]
-        public IQueryable<Log> Get()
+        public IQueryable<Logs_Full.Result> Get()
         {
-            using (var session = _store.OpenSession())
+            using (var session = Store.Instance.OpenSession())
             {
-                return session.Query<Log>();
+                return session
+                    .Query<Log>()
+                    .TransformWith<Logs_Full, Logs_Full.Result>();
             }
         }
     }

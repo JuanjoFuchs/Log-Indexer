@@ -1,12 +1,10 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using LogIndexer.Core.Domain;
-using Raven.Abstractions.Indexing;
+using LogIndexer.Processor.Data.Indexes;
 using Raven.Client;
 using Raven.Client.Document;
-using Raven.Client.Indexes;
-using System.Linq;
-using Lucene.Net.Analysis;
-using Lucene.Net.Analysis.Standard;
 
 namespace LogIndexer.Processor.Console
 {
@@ -17,8 +15,10 @@ namespace LogIndexer.Processor.Console
             using (IDocumentStore store = new DocumentStore {Url = "http://localhost:8080", DefaultDatabase = "test"})
             {
                 store.Initialize();
-                //IndexFile(store);
-                //SeedData(store);
+
+                //var sources = SeedData(store);
+                //foreach (var source in sources)
+                //    IndexFile(store, source);
                 CreateIndexes(store);
             }
         }
@@ -26,30 +26,100 @@ namespace LogIndexer.Processor.Console
         private static void CreateIndexes(IDocumentStore store)
         {
             new Records_ByData().Execute(store);
+            new Logs_Full().Execute(store);
         }
 
-        private static void SeedData(IDocumentStore store)
+        private static Dictionary<string, DataSource> SeedData(IDocumentStore store)
         {
+            var webAppFile = new DataSource
+            {
+                Name = "Local WebApplication.log",
+                Path = @"C:\dev\github\personal\Log-Indexer\LogIndexer\LogIndexer.Processor.Console\Logs",
+                File = "WebApplication.log"
+            };
+            var oldServiceFile = new DataSource
+            {
+                Name = "Local OldService.log",
+                Path = @"C:\dev\github\personal\Log-Indexer\LogIndexer\LogIndexer.Processor.Console\Logs",
+                File = "OldService.log"
+            };
+
+            string webAppFileId;
+            string oldServiceFileId;
             using (var session = store.OpenSession())
             {
-                session.Store(new Log {Name = "WebApplication log"});
-                session.Store(new Log {Name = "Some service log"});
-                session.Store(new Log {Name = "Another log"});
-                session.Store(new Log {Name = "One more log"});
+                var webApp = new Application {Name = "Web Application"};
+                var oldService = new Application {Name = "Really old web service"};
+                session.Store(webApp);
+                session.Store(oldService);
+
+                var dev = new Environment {Name = "Development"};
+                var qa = new Environment {Name = "QA"};
+                var staging = new Environment {Name = "Staging"};
+                var production = new Environment {Name = "Production"};
+                session.Store(dev);
+                session.Store(qa);
+                session.Store(staging);
+                session.Store(production);
+
+                session.Store(webAppFile);
+                session.Store(oldServiceFile);
+
+                webAppFileId = session.Advanced.GetDocumentId(webAppFile);
+                session.Store(new Log
+                {
+                    Name = "WebApplication log",
+                    ApplicationId = session.Advanced.GetDocumentId(webApp),
+                    EnvironmentId = session.Advanced.GetDocumentId(dev),
+                    DataSourceIds = new[] { webAppFileId }
+                });
+                var oldServiceId = session.Advanced.GetDocumentId(oldService);
+                oldServiceFileId = session.Advanced.GetDocumentId(oldServiceFile);
+                session.Store(new Log
+                {
+                    Name = "Some service log",
+                    ApplicationId = oldServiceId,
+                    EnvironmentId = session.Advanced.GetDocumentId(qa),
+                    DataSourceIds = new[] { oldServiceFileId}
+                });
+                session.Store(new Log
+                {
+                    Name = "Another log",
+                    ApplicationId = oldServiceId,
+                    EnvironmentId = session.Advanced.GetDocumentId(staging)
+                });
+                session.Store(new Log
+                {
+                    Name = "One more log",
+                    ApplicationId = oldServiceId,
+                    EnvironmentId = session.Advanced.GetDocumentId(production)
+                });
+
                 session.SaveChanges();
             }
+
+            return new Dictionary<string, DataSource>
+            {
+                { webAppFileId, webAppFile},
+                { oldServiceFileId, oldServiceFile}
+            };
         }
 
-        private static void IndexFile(IDocumentStore store)
+        private static void IndexFile(IDocumentStore store, KeyValuePair<string, DataSource> dataSourceWithId)
         {
-            var path = @"C:\dev\stash\noble-implementation\Cignium.CallCenter\Cignium.CallCenter.Web\CUY.log";
             var lastLineNumber = 0;
 
-            System.Console.WriteLine("Starting to read '{0}'", path);
+            var dataSource = dataSourceWithId.Value;
+            System.Console.WriteLine("Checking '{0}'", dataSource.Path);
 
-            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            var file = Directory
+                .GetFiles(dataSource.Path)
+                .FirstOrDefault(x => Path.GetFileName(x) == dataSource.File);
+            if (file == null)
+                return;
+
+            using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using (var reader = new StreamReader(stream))
-
             using (var bulkInsert = store.BulkInsert())
             {
                 try
@@ -61,7 +131,7 @@ namespace LogIndexer.Processor.Console
                         index++;
                         if (index > lastLineNumber)
                         {
-                            bulkInsert.Store(new Record {Data = line});
+                            bulkInsert.Store(new Record {Data = line, DataSourceId = dataSourceWithId.Key});
                             System.Console.Write(".");
                         }
                     }
@@ -71,19 +141,6 @@ namespace LogIndexer.Processor.Console
                     System.Console.WriteLine("Reached end of file");
                 }
             }
-        }
-    }
-
-    public class Records_ByData : AbstractIndexCreationTask<Record>
-    {
-        public Records_ByData()
-        {
-            Map = records => from record in records
-                             select new {record.Data};
-
-            Indexes.Add(x => x.Data, FieldIndexing.Analyzed);
-
-            Analyzers.Add(x => x.Data, typeof(SimpleAnalyzer).AssemblyQualifiedName);
         }
     }
 }

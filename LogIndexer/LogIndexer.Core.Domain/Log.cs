@@ -1,13 +1,17 @@
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace LogIndexer.Core.Domain
 {
-    public class Log
+    public class Log : NamedEntity
     {
-        [Key]
-        public int Id { get; set; }
+        public string ApplicationId { get; set; }
+        public string EnvironmentId { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        public ICollection<string> DataSourceIds { get; set; }
+
+        public Log()
+        {
+            DataSourceIds = new List<string>();
+        }
     }
 }

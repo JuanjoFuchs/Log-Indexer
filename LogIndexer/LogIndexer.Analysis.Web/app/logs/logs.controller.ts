@@ -14,7 +14,11 @@
         };
 
         goTo(log) {
-            this.$location.path(`/logs/${log.id}/search`);
+            this.$location.path(`/${log.id}/search`);
+        }
+
+        map(list, property, separator = ", ") {
+            return list.map(x => x[property]).join(separator);
         }
     }
 

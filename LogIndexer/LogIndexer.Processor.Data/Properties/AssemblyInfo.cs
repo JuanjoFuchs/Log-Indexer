@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LogIndexer.Core.Domain")]
+[assembly: AssemblyTitle("LogIndexer.Processor.Data")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("LogIndexer.Core.Domain")]
+[assembly: AssemblyProduct("LogIndexer.Processor.Data")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1fa52598-89fb-4806-aaf4-23de31969d85")]
+[assembly: Guid("f4c7a377-a3fe-4f1d-8db6-a9c9a6faab7f")]
 
 // Version information for an assembly consists of the following four values:
 //

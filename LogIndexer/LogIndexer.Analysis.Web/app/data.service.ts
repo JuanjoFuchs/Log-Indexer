@@ -5,33 +5,27 @@
         static $inject = ["$resource"];
 
         private logsOData;
-        private logsRest;
+        private _logs;
         private _search;
 
         constructor($resource: ng.resource.IResourceService) {
-            this.logsOData = $resource("odata/logs", {}, { oDataQuery: { method: "GET" } });
-            this.logsRest = $resource("api/logs/:id", { id: "@id" });
-            this._search = $resource("api/search", {}, { search: { method: "GET" } });
-            
+            this.logsOData = $resource("odata/logs", {}, { query: { method: "GET", isArray: false } });
+            this._logs = $resource("api/logs/:id", { id: "@id" });
+            this._search = $resource("api/logs/:id/search", { id: "@id" }, { search: { method: "GET" } });
+
         }
 
         get logs() {
             return {
-                query: (filter?) => this.logsOData.oDataQuery(filter).$promise
-                    .then(response => {
-                        return {
-                            count: response["@odata.count"],
-                            entities: response.value
-                        };
-                    }),
+                query: () => this._logs.query().$promise,
 
-                load: id => this.logsRest.get({ id: id }).$promise
+                load: id => this._logs.get({ id: id }).$promise
             };
         }
 
         get search() {
             return {
-                query: (query?) => this._search.search({ query: query }).$promise
+                query: (id, query?) => this._search.search({ id: id.replace("logs/", ""), query: query }).$promise
             };
         }
     }

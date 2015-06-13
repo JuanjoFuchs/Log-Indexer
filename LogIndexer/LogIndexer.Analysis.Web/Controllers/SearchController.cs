@@ -1,25 +1,33 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 using LogIndexer.Core.Domain;
 using Raven.Abstractions.Data;
-using Raven.Client;
-using Raven.Client.Document;
 
 namespace LogIndexer.Analysis.Web.Controllers
 {
+    [RoutePrefix("api/logs/{id}/search")]
     public class SearchController : ApiController
     {
-        private readonly IDocumentStore _store;
-
-        public SearchController()
+        [Route("")]
+        public IHttpActionResult Get(int id, string query)
         {
-            _store = new DocumentStore { Url = "http://localhost:8080", DefaultDatabase = "test" };
-            _store.Initialize();
-        }
+            using (var session = Store.Instance.OpenSession())
+            {
+                //var logId = session.Advanced.DocumentStore.Conventions
+                //    .FindFullDocumentKeyFromNonStringIdentifier(id, typeof (Log), false);
+                var log = session.Load<Log>(id);
+                if (log == null)
+                    throw new ArgumentException($"Couldn't find a log with Id: {id}", "id");
 
-        public IHttpActionResult Get(string query)
-        {
-            var result = _store.DatabaseCommands.Query("Records/ByData", new IndexQuery {Query = query});
+                var dataSourceIds = log
+                    .DataSourceIds
+                    .Select(x => $"DataSourceId: {x}");
+                query = $"{string.Join(" AND ", dataSourceIds)} AND ({query})";
+            }
+
+            var result = Store.Instance.DatabaseCommands
+                .Query("Records/ByData", new IndexQuery {Query = query});
 
             return Ok(new
             {

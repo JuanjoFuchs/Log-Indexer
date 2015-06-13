@@ -3,16 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
-    <link rel="stylesheet" href="http://cdn.rawgit.com/angular/bower-material/v0.9.8/angular-material.css"/>
     <meta name="viewport" content="initial-scale=1" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+    @Styles.Render("~/Content/css")
 </head>
 <body layout="row" layout-fill>
     @RenderBody()
 
     @Scripts.Render("~/bundles/vendor")
     @RenderSection("scripts", required: false)
-    <script src="http://cdn.rawgit.com/angular/bower-material/v0.9.8/angular-material.js"></script>
 </body>
 </html>

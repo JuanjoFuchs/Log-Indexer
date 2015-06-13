@@ -1,26 +1,25 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 using LogIndexer.Core.Domain;
-using Raven.Client;
-using Raven.Client.Document;
+using LogIndexer.Processor.Data.Indexes;
 
 namespace LogIndexer.Analysis.Web.Controllers
 {
+    [RoutePrefix("api/logs")]
     public class LogsController : ApiController
     {
-        private readonly IDocumentStore _store;
-
-        public LogsController()
+        public IQueryable<Logs_Full.Result> Get()
         {
-            _store = new DocumentStore { Url = "http://localhost:8080", DefaultDatabase = "test" };
-            _store.Initialize();
+            using (var session = Store.Instance.OpenSession())
+                return session.Query<Log>()
+                    .TransformWith<Logs_Full, Logs_Full.Result>();
         }
 
-        public Log Get(int id)
+        [Route("{id}")]
+        public Logs_Full.Result Get(int id)
         {
-            using (var session = _store.OpenSession())
-            {
-                return session.Load<Log>(id);
-            }
+            using (var session = Store.Instance.OpenSession())
+                return session.Load<Logs_Full, Logs_Full.Result>($"logs/{id}");
         }
     }
 }

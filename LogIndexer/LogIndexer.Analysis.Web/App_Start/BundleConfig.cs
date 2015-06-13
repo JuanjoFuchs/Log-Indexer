@@ -17,14 +17,14 @@ namespace LogIndexer.Analysis.Web
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-animate.js",
                 "~/Scripts/angular-aria.js",
-                // "~/Scripts/angular-material.js",
+                 "~/Scripts/angular-material.js",
                 "~/Scripts/angular-route.js",
-                "~/Scripts/angular-resource.js",
-                "~/Scripts/rx.js",
-                "~/Scripts/rx.lite.js",
-                "~/Scripts/rx.aggregates.js",
-                "~/Scripts/rx.async.js",
-                "~/Scripts/rx.angular.js"
+                "~/Scripts/angular-resource.js"
+                //"~/Scripts/rx.js",
+                //"~/Scripts/rx.lite.js",
+                //"~/Scripts/rx.aggregates.js",
+                //"~/Scripts/rx.async.js",
+                //"~/Scripts/rx.angular.js"
                 ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -33,7 +33,7 @@ namespace LogIndexer.Analysis.Web
                 "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                // "~/Content/angular-material/angular-material.css",
+                 "~/Content/angular-material/angular-material.css",
                 "~/Content/site.css"));
         }
     }

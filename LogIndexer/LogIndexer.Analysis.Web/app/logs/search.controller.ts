@@ -9,7 +9,7 @@
         query;
         results;
 
-        constructor(private locationService: ng.ILocationService, private dataService: DataService, log) {
+        constructor(private locationService: ng.ILocationService, private dataService: DataService, private log) {
         }
 
         static resolve: any = {
@@ -18,7 +18,7 @@
 
         search() {
             this.dataService.search
-                .query(this.query)
+                .query(this.log.id, this.query)
                 .then(results => this.results = results);
         }
     }

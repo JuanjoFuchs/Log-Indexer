@@ -3,6 +3,7 @@ using System.Web.OData.Batch;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
 using LogIndexer.Core.Domain;
+using LogIndexer.Processor.Data.Indexes;
 using Microsoft.OData.Edm;
 using Newtonsoft.Json;
 
@@ -34,6 +35,10 @@ namespace LogIndexer.Analysis.Web
         {
             var builder = new ODataConventionModelBuilder {Namespace = typeof (Log).Namespace};
             builder.EntitySet<Log>("logs");
+            builder.EntitySet<Logs_Full.Result>("logs_full");
+            builder.EntitySet<Application>("applications");
+            builder.EntitySet<Environment>("environments");
+            builder.EntitySet<DataSource>("dataSources");
             builder.EnableLowerCamelCase();
             var edmModel = builder.GetEdmModel();
             return edmModel;
