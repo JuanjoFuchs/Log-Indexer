@@ -1,11 +1,16 @@
 ﻿<md-content>
-    <section>
+    <section layout="row" layout-align="start center">
         <md-button class="md-raised md-primary"
                    ng-click="logSearch.search()"
                    ng-disabled="!logSearch.query">
             <md-icon md-svg-icon="av:play_arrow"></md-icon>
             Run
         </md-button>
+        <md-select placeholder="Model" ng-model="logSearch.model">
+            <md-option value="{{null}}">None</md-option>
+            <md-option ng-repeat="model in logSearch.models"
+                       ng-value="model.id">{{model.name}}</md-option>
+        </md-select>
     </section>
     <section>
         <form name="searchForm"
@@ -30,6 +35,20 @@
                 <div class="md-list-item-text code">
                     {{result.data}}
                 </div>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </section>
+    <section ng-show="logSearch.modelResults">
+        <md-subheader>
+            Found {{logSearch.modelResults.length}} record{{logSearch.modelResults.length == 1 ? "" : "s"}}
+            in {{30/1000}} seconds
+        </md-subheader>
+        <md-list>
+            <md-list-item class="md-3-line"
+                          ng-repeat="result in logSearch.modelResults track by $index">
+                <json-formatter json="result" open="1"></json-formatter>
+                
                 <md-divider></md-divider>
             </md-list-item>
         </md-list>

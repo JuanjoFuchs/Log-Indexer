@@ -8,6 +8,12 @@
 
         query;
         results;
+        models = [
+            { id: "WebLog", name: "WebLog" },
+            { id: "WebLogError", name: "WebLogError" },
+        ];
+        model;
+        modelResults;
 
         constructor(private locationService: ng.ILocationService, private dataService: DataService, private log) {
         }
@@ -17,9 +23,20 @@
         }
 
         search() {
-            this.dataService.search
-                .query(this.log.id, this.query)
-                .then(results => this.results = results);
+            if (this.model)
+                this.dataService.search
+                    .byModel(this.log.id, this.model, this.query)
+                    .then(modelResults => {
+                        this.modelResults = modelResults;
+                        this.results = null;
+                    });
+            else
+                this.dataService.search
+                    .byText(this.log.id, this.query)
+                    .then(results => {
+                        this.results = results;
+                        this.modelResults = null;
+                    });
         }
     }
 

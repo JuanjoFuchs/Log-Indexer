@@ -11,6 +11,7 @@ module LogIndexer.Analysis {
         // Custom modules 
 
         // 3rd Party Modules
+        "jsonFormatter"
     ]).config(function ($mdIconProvider) {
         // Configure URLs for icons specified by [set:]id.
         $mdIconProvider

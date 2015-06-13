@@ -12,8 +12,13 @@
         constructor($resource: ng.resource.IResourceService) {
             this.logsOData = $resource("odata/logs", {}, { query: { method: "GET", isArray: false } });
             this._logs = $resource("api/logs/:id", { id: "@id" });
-            this._search = $resource("api/logs/:id/search", { id: "@id" }, { search: { method: "GET" } });
-            this._recordsTotals = $resource("api/records/totals/:by", {}, { byDataSourceId: { method: "GET", params: { by: "byDataSourceId"}, isArray: true } });
+            this._search = $resource("api/logs/:id/search/:by", { id: "@id" }, {
+                byText: { method: "GET" , params:{by:"byText"}},
+                byModel:{ method:"GET", params:{by:"byModel"}, isArray:true}
+            });
+            this._recordsTotals = $resource("api/records/totals/:by", {}, {
+                 byDataSourceId: { method: "GET", params: { by: "byDataSourceId"}, isArray: true }
+            });
         }
 
         get logs() {
@@ -34,7 +39,8 @@
 
         get search() {
             return {
-                query: (id, query?) => this._search.search({ id: id.replace("logs/", ""), query: query }).$promise
+                byText: (id, query?) => this._search.byText({ id: id.replace("logs/", ""), query: query }).$promise,
+                byModel: (id, model, query) => this._search.byModel({ id: id.replace("logs/", ""), model: model, query: query }).$promise,
             };
         }
     }

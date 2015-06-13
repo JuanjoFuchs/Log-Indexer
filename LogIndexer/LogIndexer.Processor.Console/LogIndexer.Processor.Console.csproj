@@ -74,6 +74,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LogIndexer.Analysis.Domain\LogIndexer.Analysis.Domain.csproj">
+      <Project>{B16E34BE-E849-4CFD-AAD8-6016D263F32A}</Project>
+      <Name>LogIndexer.Analysis.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogIndexer.Core.Data\LogIndexer.Core.Data.csproj">
       <Project>{C613C973-8D4F-418A-BF1A-9AA12F1F2CC4}</Project>
       <Name>LogIndexer.Core.Data</Name>

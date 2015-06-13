@@ -9,7 +9,7 @@ namespace LogIndexer.Core.Data
 
         public static IDocumentStore Instance => _store ?? (_store = CreateStore());
 
-        private static IDocumentStore CreateStore()
+        public static IDocumentStore CreateStore()
         {
             var store = new DocumentStore { Url = "http://localhost:8080", DefaultDatabase = "test" };
             store.Initialize();
