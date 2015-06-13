@@ -202,6 +202,7 @@
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\LogsODataController.cs" />
     <Compile Include="Controllers\RecordsTotalsController.cs" />
+    <Compile Include="Controllers\RoslynHelper.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -7,6 +7,6 @@ namespace LogIndexer.Analysis.Domain
     {
         public DateTime Date { get; set; }
         public string Controller { get; set; }
-        public List<LoggedException> Errors { get; set; }
+        public ICollection<LoggedException> Errors { get; set; }
     }
 }

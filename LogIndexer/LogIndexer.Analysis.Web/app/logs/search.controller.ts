@@ -25,7 +25,7 @@
         search() {
             if (this.model)
                 this.dataService.search
-                    .byModel(this.log.id, this.model, this.query)
+                    .byModel(this.log.id, this.query)
                     .then(modelResults => {
                         this.modelResults = modelResults;
                         this.results = null;

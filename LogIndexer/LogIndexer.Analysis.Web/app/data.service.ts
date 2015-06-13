@@ -40,7 +40,7 @@
         get search() {
             return {
                 byText: (id, query?) => this._search.byText({ id: id.replace("logs/", ""), query: query }).$promise,
-                byModel: (id, model, query) => this._search.byModel({ id: id.replace("logs/", ""), model: model, query: query }).$promise,
+                byModel: (id, query) => this._search.byModel({ id: id.replace("logs/", ""), query: query }).$promise,
             };
         }
     }

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Core.Data", "Log
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Analysis.Domain", "LogIndexer.Analysis.Domain\LogIndexer.Analysis.Domain.csproj", "{B16E34BE-E849-4CFD-AAD8-6016D263F32A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Core.Web", "LogIndexer.Core.Web\LogIndexer.Core.Web.csproj", "{2C313671-31DC-43A8-B960-50F810A38B52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B16E34BE-E849-4CFD-AAD8-6016D263F32A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B16E34BE-E849-4CFD-AAD8-6016D263F32A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B16E34BE-E849-4CFD-AAD8-6016D263F32A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C313671-31DC-43A8-B960-50F810A38B52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C313671-31DC-43A8-B960-50F810A38B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C313671-31DC-43A8-B960-50F810A38B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C313671-31DC-43A8-B960-50F810A38B52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

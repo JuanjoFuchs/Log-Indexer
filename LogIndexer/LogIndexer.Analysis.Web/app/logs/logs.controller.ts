@@ -10,7 +10,6 @@
         private dataSourceTotals;
 
         constructor(private $location: ng.ILocationService, dataService: DataService, data) {
-            console.log(data);
             this.logs = data.logs;
             this.dataSourceTotals = data.dataSourceTotals;
         }
