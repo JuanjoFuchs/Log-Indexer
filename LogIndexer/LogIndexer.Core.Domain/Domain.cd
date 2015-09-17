@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Alphabetical" MembersFormat="NameAndType">
+  <Class Name="LogIndexer.Core.Domain.Application" Collapsed="true" HideInheritanceLine="true">
+    <Position X="22.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.DataSource" HideInheritanceLine="true">
+    <Position X="22.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIEAAAEAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Environment" Collapsed="true" HideInheritanceLine="true">
+    <Position X="22.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Environment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Log" HideInheritanceLine="true">
+    <Position X="12.75" Y="2.75" Width="2.75" />
+    <Members>
+      <Method Name="Log" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAIAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Log.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Record">
+    <Position X="16" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Record.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Server" Collapsed="true" HideInheritanceLine="true">
+    <Position X="22.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.ExtendedEntity" HideInheritanceLine="true">
+    <Position X="22.75" Y="10.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExtendedEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.NamedEntity" HideInheritanceLine="true">
+    <Position X="22.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NamedEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Entity">
+    <Position X="22.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.LogProcessor" HideInheritanceLine="true">
+    <Position X="22.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>LogProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Filter" HideInheritanceLine="true">
+    <Position X="18.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.StronglyTypedFilter&lt;T&gt;">
+    <Position X="18.5" Y="8.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Model&lt;T&gt;" HideInheritanceLine="true">
+    <Position X="15.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.SerializablePredicate&lt;T&gt;" Collapsed="true">
+    <Position X="22.75" Y="7.75" Width="2" />
+    <Members>
+      <Property Name="Predicate" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.UntypedFilter">
+    <Position X="16.5" Y="10" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.FilterTrigger" HideInheritanceLine="true">
+    <Position X="24.75" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Trigger" HideInheritanceLine="true">
+    <Position X="24.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Alert" Collapsed="true" HideInheritanceLine="true">
+    <Position X="24.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.AlertAction" HideInheritanceLine="true">
+    <Position X="24.75" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAQAAIAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Index" Collapsed="true" HideInheritanceLine="true">
+    <Position X="15.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Query" HideInheritanceLine="true">
+    <Position X="14.25" Y="11.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Transformation" HideInheritanceLine="true">
+    <Position X="19" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.StronglyTypedTransformation&lt;T, K&gt;">
+    <Position X="19" Y="3.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.UntypedTransformation&lt;K&gt;">
+    <Position X="17" Y="5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Grouping" HideInheritanceLine="true">
+    <Position X="11.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.UntypedGrouping&lt;K&gt;">
+    <Position X="8.25" Y="11.25" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.StronglyTypedGrouping&lt;T, K&gt;">
+    <Position X="11.25" Y="9.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Reduction">
+    <Position X="9.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.StronglyTypedReduction&lt;T, K&gt;">
+    <Position X="9.75" Y="5.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.UntypedReduction&lt;K&gt;">
+    <Position X="7.25" Y="7.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.StatisticalDefinition" Collapsed="true" HideInheritanceLine="true">
+    <Position X="9.75" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Reduction" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.User" HideInheritanceLine="true">
+    <Position X="25.25" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgQAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Premissions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="LogIndexer.Core.Domain.Permission">
+    <Position X="25.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

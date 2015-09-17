@@ -1,6 +1,6 @@
 namespace LogIndexer.Core.Domain
 {
-    public class Server : NamedEntity
+    public class Server : ExtendedEntity
     {
          
     }
