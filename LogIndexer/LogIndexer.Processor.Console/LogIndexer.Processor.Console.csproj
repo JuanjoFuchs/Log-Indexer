@@ -95,6 +95,10 @@
       <Project>{B16E34BE-E849-4CFD-AAD8-6016D263F32A}</Project>
       <Name>LogIndexer.Analysis.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LogIndexer.Core.Data.Plugins\LogIndexer.Core.Data.Plugins.csproj">
+      <Project>{8E37C7D9-348A-47BB-8F9B-BD7BCBCF3128}</Project>
+      <Name>LogIndexer.Core.Data.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogIndexer.Core.Data\LogIndexer.Core.Data.csproj">
       <Project>{C613C973-8D4F-418A-BF1A-9AA12F1F2CC4}</Project>
       <Name>LogIndexer.Core.Data</Name>

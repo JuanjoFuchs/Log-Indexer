@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using LogIndexer.Analysis.Domain;
+using LogIndexer.Core.Data.Transforms;
+using LogIndexer.Core.Domain;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Raven.Client;
@@ -16,7 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LogIndexer.Analysis.Domain;
+using LogIndexer.Core.Data;
+using LogIndexer.Core.Domain;
 using Raven.Client;
+using Raven.Client.Linq;
 
 namespace LogIndexer.RoslynCompiler.Template {
     public class LinqQuery { public static object Compile(IDocumentSession session) { return {0}; } }
@@ -29,7 +34,9 @@ namespace LogIndexer.RoslynCompiler.Template {
         {
             MetadataReference.CreateFromFile(typeof (object).Assembly.Location),
             MetadataReference.CreateFromFile(typeof (Enumerable).Assembly.Location),
+            MetadataReference.CreateFromFile(typeof (Record).Assembly.Location),
             MetadataReference.CreateFromFile(typeof (WebLog).Assembly.Location),
+            MetadataReference.CreateFromFile(typeof (WebLog_Transformer).Assembly.Location),
             MetadataReference.CreateFromFile(typeof (IDocumentSession).Assembly.Location),
         };
 

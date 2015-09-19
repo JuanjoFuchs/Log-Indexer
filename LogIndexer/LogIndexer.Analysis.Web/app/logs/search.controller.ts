@@ -13,7 +13,7 @@
             { id: "WebLogError", name: "WebLogError" },
         ];
         model;
-        modelResults;
+        isModel;
 
         constructor(private locationService: ng.ILocationService, private dataService: DataService, private log) {
         }
@@ -25,17 +25,17 @@
         search() {
             if (this.model)
                 this.dataService.search
-                    .byModel(this.log.id, this.query)
-                    .then(modelResults => {
-                        this.modelResults = modelResults;
-                        this.results = null;
+                    .byModel(this.log.id, this.model, this.query)
+                    .then(results => {
+                        this.results = results;
+                        this.isModel = true;
                     });
             else
                 this.dataService.search
                     .byText(this.log.id, this.query)
                     .then(results => {
                         this.results = results;
-                        this.modelResults = null;
+                        this.isModel = false;
                     });
         }
     }

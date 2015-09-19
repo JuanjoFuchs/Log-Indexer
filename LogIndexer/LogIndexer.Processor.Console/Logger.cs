@@ -1,12 +1,15 @@
-static internal class Logger
+namespace LogIndexer.Processor.Console
 {
-    public static void WriteLine(string message)
+    static internal class Logger
     {
-        System.Console.WriteLine(message);
-    }
+        public static void WriteLine(string message)
+        {
+            System.Console.WriteLine(message);
+        }
 
-    public static void Write(string message)
-    {
-        System.Console.Write(message);
+        public static void Write(string message)
+        {
+            System.Console.Write(message);
+        }
     }
 }

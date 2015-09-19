@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Analysis.Web", "LogIndexer.Analysis.Web\LogIndexer.Analysis.Web.csproj", "{3E161FB5-63A6-479A-BF64-A090D053B2CD}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Analysis.Domain", "LogIndexer.Analysis.Domain\LogIndexer.Analysis.Domain.csproj", "{B16E34BE-E849-4CFD-AAD8-6016D263F32A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Core.Web", "LogIndexer.Core.Web\LogIndexer.Core.Web.csproj", "{2C313671-31DC-43A8-B960-50F810A38B52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Core.Data.Plugins", "LogIndexer.Core.Data.Plugins\LogIndexer.Core.Data.Plugins.csproj", "{8E37C7D9-348A-47BB-8F9B-BD7BCBCF3128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogIndexer.Core.Data.Plugins.RavenDB", "LogIndexer.Core.Data.Plugins.RavenDB\LogIndexer.Core.Data.Plugins.RavenDB.csproj", "{8553E919-6C12-4478-BF07-4D64F500CE08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{2C313671-31DC-43A8-B960-50F810A38B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C313671-31DC-43A8-B960-50F810A38B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C313671-31DC-43A8-B960-50F810A38B52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E37C7D9-348A-47BB-8F9B-BD7BCBCF3128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E37C7D9-348A-47BB-8F9B-BD7BCBCF3128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E37C7D9-348A-47BB-8F9B-BD7BCBCF3128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E37C7D9-348A-47BB-8F9B-BD7BCBCF3128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8553E919-6C12-4478-BF07-4D64F500CE08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8553E919-6C12-4478-BF07-4D64F500CE08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8553E919-6C12-4478-BF07-4D64F500CE08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8553E919-6C12-4478-BF07-4D64F500CE08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

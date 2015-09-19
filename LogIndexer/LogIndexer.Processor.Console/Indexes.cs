@@ -1,14 +1,18 @@
 using LogIndexer.Core.Data.Indexes;
 using Raven.Client;
 
-static internal class Indexes
+namespace LogIndexer.Processor.Console
 {
-    public static void Create(IDocumentStore store)
+    static internal class Indexes
     {
-        Logger.Write("Creating indexes...");
-        new Records_ByData().Execute(store);
-        new Logs_Full().Execute(store);
-        new Records_ByDataSourceId_Total().Execute(store);
-        Logger.WriteLine("Done!");
+        public static void Create(IDocumentStore store)
+        {
+            Logger.Write("Creating indexes...");
+            new Records_ByData().Execute(store);
+            new Logs_Full().Execute(store);
+            new Records_ByDataSourceId_Total().Execute(store);
+            new Records_ByWebLog().Execute(store);
+            Logger.WriteLine("Done!");
+        }
     }
 }

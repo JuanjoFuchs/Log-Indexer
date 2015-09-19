@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using CommandLine;
-using LogIndexer.Analysis.Domain;
 using LogIndexer.Core.Data;
 using LogIndexer.Core.Data.Indexes;
+using LogIndexer.Core.Data.Transforms;
 using LogIndexer.Core.Domain;
 using Newtonsoft.Json;
 using Raven.Client;
@@ -37,6 +36,9 @@ namespace LogIndexer.Processor.Console
 
                 if (options.Models)
                     Models.Create(store);
+
+                //new WebLog_Transformer().Execute(store);
+                //new WebLogError_Transformer().Execute(store);
             }
         }
 

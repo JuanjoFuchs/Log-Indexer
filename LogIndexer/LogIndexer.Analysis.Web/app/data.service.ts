@@ -12,9 +12,9 @@
         constructor($resource: ng.resource.IResourceService) {
             this.logsOData = $resource("odata/logs", {}, { query: { method: "GET", isArray: false } });
             this._logs = $resource("api/logs/:id", { id: "@id" });
-            this._search = $resource("api/logs/:id/search/:by", { id: "@id" }, {
+            this._search = $resource("api/logs/:id/search/:by/:model", { id: "@id", model: "@model" }, {
                 byText: { method: "GET" , params:{by:"byText"}},
-                byModel:{ method:"GET", params:{by:"byModel"}, isArray:true}
+                byModel:{ method:"GET", params:{by:"byModel"}}
             });
             this._recordsTotals = $resource("api/records/totals/:by", {}, {
                  byDataSourceId: { method: "GET", params: { by: "byDataSourceId"}, isArray: true }
@@ -40,7 +40,11 @@
         get search() {
             return {
                 byText: (id, query?) => this._search.byText({ id: id.replace("logs/", ""), query: query }).$promise,
-                byModel: (id, query) => this._search.byModel({ id: id.replace("logs/", ""), query: query }).$promise,
+                byModel: (id, model, query) => this._search.byModel({
+                    id: id.replace("logs/", ""),
+                    model: model,
+                    query: query
+                }).$promise,
             };
         }
     }
